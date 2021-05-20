@@ -1,19 +1,9 @@
-# client
+---
 
-## Project setup
-```
-npm install
-```
+## 5/20
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+계획 - signup, login, logout 기능 구현
 
-### Compiles and minifies for production
-```
-npm run build
-```
+구현 완료 - 
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+---
