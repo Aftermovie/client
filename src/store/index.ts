@@ -35,16 +35,19 @@ const state: State = {
 // mutations and action enums
 
 export enum MutationTypes {
-  GET_JWT = "SET_JWT"
+  GET_JWT = "SET_JWT",
+  DELETE_JWT = "REMOVE_JWT"
 }
 
 export enum ActionTypes {
-  GET_JWT = "SET_JWT"
+  GET_JWT = "SET_JWT",
+  DELETE_JWT = "REMOVE_JWT"
 }
 
 //Mutation Types
 export type Mutations<S = State> = {
   [MutationTypes.GET_JWT](state: S, token: string): void;
+  [MutationTypes.DELETE_JWT](state: S, credential: Credential): void;
 };
 
 //define mutations
@@ -52,6 +55,9 @@ const mutations: MutationTree<State> & Mutations = {
   [MutationTypes.GET_JWT](state: State, token: string) {
     state.userToken = token
     console.log(state.userToken)
+  },
+  [MutationTypes.DELETE_JWT](state: State, credential: Credential) {
+    state.userToken = ""
   }
 };
 
@@ -71,28 +77,43 @@ export interface Actions {
     { commit }: AugmentedActionContext,
     payload: Credential
   ): void;
+  [ActionTypes.DELETE_JWT](
+    { commit }: AugmentedActionContext,
+    payload: Credential
+  ): void;
 }
 
-const SERVER_URL = process.env.VUE_APP_SERVER_URL
+const SERVER_URL_LOGIN = `${process.env.VUE_APP_SERVER_URL}/accounts/login/`
 
 export const actions: ActionTree<State, State> & Actions = {
-  [ActionTypes.GET_JWT]({ commit }, credential: Credential) {
+  async [ActionTypes.GET_JWT]({ commit }, credential: Credential) {
     console.log(credential)
-    axios({
-      method: 'post',
-      url: `${SERVER_URL}/accounts/login/`,
-      data: credential
-    })
-      .then((res: AxiosResponse) => {
-        console.log('dainoanfanfalk')
-        console.log(res)
-        // 이곳에서 내가 username은 state에 저장이 가능한데, name을 알아낼 방법이 없다.
-        // 때문에 백엔드에서 데이터 보내주면 그걸 저장해야하는데 이때 받는 데이터에 username도 포함시켜주는지 확인하고 처리해야 겠다.
-        commit(MutationTypes.GET_JWT, res.data.token)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+    try {
+      const response: AxiosResponse = await axios.post(SERVER_URL_LOGIN, credential)
+      commit(MutationTypes.GET_JWT, response.data.token)
+      // 이곳에서 내가 username은 state에 저장이 가능한데, name을 알아낼 방법이 없다.
+      // 때문에 백엔드에서 데이터 보내주면 그걸 저장해야하는데 이때 받는 데이터에 username도 포함시켜주는지 확인하고 처리해야 겠다.
+    }
+    catch (err) {
+      console.log(err)
+    }
+    // axios({
+    //   method: 'post',
+    //   url: SERVER_URL_LOGIN,
+    //   data: credential
+    // })
+    //   .then((res: AxiosResponse) => {
+    //     console.log('dainoanfanfalk')
+    //     console.log(res)
+    //     
+    //     commit(MutationTypes.GET_JWT, res.data.token)
+    //   })
+    //   .catch((err) => {
+    //     console.log(err)
+    //   })
+  },
+  [ActionTypes.DELETE_JWT]({ commit }, credential: Credential) {
+    commit(MutationTypes.DELETE_JWT, credential)
   }
 };
 
