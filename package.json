@@ -7,16 +7,19 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
-    "@types/node": "^15.3.1",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "jwt-decode": "^3.1.2",
+    "node-sass": "^4.14.1",
+    "sass-loader": "^10.2.0",
+    "swiper": "^6.6.2",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
     "vuex": "^4.0.0-0",
     "vuex-persistedstate": "^4.0.0-beta.3"
   },
   "devDependencies": {
+    "@types/node": "^15.6.0",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-router": "~4.5.0",
     "@vue/cli-plugin-typescript": "~4.5.0",

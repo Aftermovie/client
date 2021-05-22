@@ -1,5 +1,5 @@
 <template>
-  <div>home</div>
+  <Carousel :carousel_movies="carousel_movies" />
 
   <!-- <div class="home">
     <div class="card" v-for="movie in movies" :key="movie">
@@ -10,15 +10,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { computed, defineComponent, ref, onMounted } from "vue";
 import axios from "axios";
 import Movie from "../types/Movie";
+import Carousel from "../components/movies/Carousel.vue";
 
 export default defineComponent({
   name: "Home",
-  components: {},
+  components: { Carousel },
   setup() {
     const movies = ref<Movie[]>([]);
+    const carousel_movies = computed(() => movies.value.splice(0, 10));
 
     const SERVER_URL_GETALLMOVIE = `${process.env.VUE_APP_SERVER_URL}/movies/`;
 
@@ -38,6 +40,7 @@ export default defineComponent({
     return {
       movies,
       load,
+      carousel_movies,
     };
   },
 });
