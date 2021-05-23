@@ -42,8 +42,11 @@ export default defineComponent({
   props: ["carousel_movies"],
   setup(props) {
     const movies = ref<Movie[]>(props.carousel_movies);
+
+    // onMounted((movies.value = props.carousel_movies));
+
     // 아래 주석된 코드를 키거나 꺼야지 화면에 렌더링이 반영된다.... 도대체 왜 그런지는 모르겟다...
-    console.log(movies);
+    // console.log(movies);
     const onSwiper = (swiper: any) => {
       console.log(swiper);
     };

@@ -48,8 +48,11 @@ body {
 .nav {
   height: 50px;
   width: 100%;
-  background-color: #4d4d4d;
+  /* background-color: #4d4d4d; */
+  /* rgba에서 a값이 투명도에 대한 정도이다. */
+  background: rgba(255, 255, 255, 0.5);
   position: relative;
+  box-shadow: 0 4px 4px -4px black;
 }
 
 .nav > .nav-header {
@@ -59,7 +62,7 @@ body {
 .nav > .nav-header > .nav-title {
   display: inline-block;
   font-size: 22px;
-  color: #fff;
+  color: #000;
   padding: 10px 10px 10px 10px;
 }
 
@@ -77,7 +80,7 @@ body {
   display: inline-block;
   padding: 13px 10px 13px 10px;
   text-decoration: none;
-  color: #efefef;
+  color: #000;
 }
 
 .nav > .nav-links > a:hover {

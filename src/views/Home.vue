@@ -1,6 +1,6 @@
 <template>
   <Carousel :carousel_movies="carousel_movies" />
-
+  <VerticalSlide :vertical_movies="carousel_movies" />
   <!-- <div class="home">
     <div class="card" v-for="movie in movies" :key="movie">
       {{ movie.title }}
@@ -10,14 +10,15 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, onMounted } from "vue";
+import { computed, defineComponent, ref } from "vue";
 import axios from "axios";
 import Movie from "../types/Movie";
 import Carousel from "../components/movies/Carousel.vue";
+import VerticalSlide from "../components/movies/VerticalSlide.vue";
 
 export default defineComponent({
   name: "Home",
-  components: { Carousel },
+  components: { Carousel, VerticalSlide },
   setup() {
     const movies = ref<Movie[]>([]);
     const carousel_movies = computed(() => movies.value.splice(0, 10));
