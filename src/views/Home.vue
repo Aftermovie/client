@@ -21,6 +21,7 @@ export default defineComponent({
   components: { Carousel, VerticalSlide },
   setup() {
     const movies = ref<Movie[]>([]);
+
     const carousel_movies = computed(() => movies.value.splice(0, 10));
 
     const SERVER_URL_GETALLMOVIE = `${process.env.VUE_APP_SERVER_URL}/movies/`;
@@ -29,7 +30,6 @@ export default defineComponent({
       try {
         const response = await axios.get(SERVER_URL_GETALLMOVIE);
         movies.value = response.data;
-
         console.log(response.data);
       } catch (err) {
         console.log(err);

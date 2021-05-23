@@ -43,16 +43,19 @@ export default defineComponent({
 body {
   margin: 0px;
   font-family: "segoe ui";
+  position: relative;
 }
 
 .nav {
+  top: 0;
   height: 50px;
   width: 100%;
   /* background-color: #4d4d4d; */
   /* rgba에서 a값이 투명도에 대한 정도이다. */
-  background: rgba(255, 255, 255, 0.5);
-  position: relative;
+  background: rgba(0, 0, 0, 0.8);
+  position: absolute;
   box-shadow: 0 4px 4px -4px black;
+  z-index: 10;
 }
 
 .nav > .nav-header {
@@ -80,7 +83,7 @@ body {
   display: inline-block;
   padding: 13px 10px 13px 10px;
   text-decoration: none;
-  color: #000;
+  color: #rgba(255, 0, 0);
 }
 
 .nav > .nav-links > a:hover {

@@ -15,13 +15,20 @@
     :pagination="true"
     class="mySwiper"
   >
-    <swiper-slide v-for="movie in vertical_movies" :key="movie">
+    <swiper-slide v-for="movie in vertical_movies" :key="movie.id">
       <!-- {{ movie.title }} -->
-      <img
-        :src="movie.poster_path"
-        alt=""
-        style="width: auto; height: auto; max-width: 1000px; max-height: 300px"
-      />
+      <router-link :to="{ name: 'movieDetail', params: { id: movie.id } }">
+        <img
+          :src="movie.poster_path"
+          alt=""
+          style="
+            width: auto;
+            height: auto;
+            max-width: 1000px;
+            max-height: 300px;
+          "
+        />
+      </router-link>
     </swiper-slide>
   </swiper>
 </template>
