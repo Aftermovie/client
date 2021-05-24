@@ -1,29 +1,18 @@
 <template>
-  <div class="nav">
-    <input type="checkbox" id="nav-check" />
-    <div class="nav-header">
-      <div class="nav-title">AfterMovie</div>
+  <header>
+    <a href="#" class="logo"><img src="../../assets/img/logo.png" alt="" /></a>
+    <ul class="navigation">
+      <li><a href="">Home</a></li>
+      <li><a href="">TV Shows</a></li>
+      <li><a href="">Movies</a></li>
+      <li><a href="">Latest</a></li>
+      <li><a href="">My List</a></li>
+    </ul>
+    <div class="search">
+      <input type="text" placeholder="Search" />
+      <i class="fa fa-search" aria-hidden="true"></i>
     </div>
-    <div class="nav-btn">
-      <label for="nav-check">
-        <span></span>
-        <span></span>
-        <span></span>
-      </label>
-    </div>
-
-    <div class="nav-links">
-      <a href="//github.io/jo_geek" target="_blank">Github</a>
-      <a href="http://stackoverflow.com/users/4084003/" target="_blank"
-        >Stackoverflow</a
-      >
-      <a href="https://in.linkedin.com/in/jonesvinothjoseph" target="_blank"
-        >LinkedIn</a
-      >
-      <a href="https://codepen.io/jo_Geek/" target="_blank">Codepen</a>
-      <a href="https://jsfiddle.net/user/jo_Geek/" target="_blank">JsFiddle</a>
-    </div>
-  </div>
+  </header>
 </template>
 
 <script lang="ts">
@@ -36,108 +25,81 @@ export default defineComponent({
 </script>
 
 <style scoped>
-* {
+header {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
-}
-
-body {
-  margin: 0px;
-  font-family: "segoe ui";
-  position: relative;
-}
-
-.nav {
-  top: 0;
-  height: 50px;
-  width: 100%;
-  /* background-color: #4d4d4d; */
-  /* rgba에서 a값이 투명도에 대한 정도이다. */
+  font-family: "Poppins", sans-serif;
   background: rgba(0, 0, 0, 0.8);
   position: absolute;
-  box-shadow: 0 4px 4px -4px black;
-  z-index: 10;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 100px;
+  z-index: 100;
 }
 
-.nav > .nav-header {
-  display: inline;
+/* 그냥 큰 사진을 가져와서 이렇게 max-width 속성으로
+이미지 크기를 줄여버려도 되네!!! */
+header .logo img {
+  max-width: 150px;
 }
 
-.nav > .nav-header > .nav-title {
-  display: inline-block;
-  font-size: 22px;
-  color: #000;
-  padding: 10px 10px 10px 10px;
+.navigation {
+  display: flex;
 }
 
-.nav > .nav-btn {
-  display: none;
+.navigation li {
+  list-style: none;
+  margin: 0 10px;
 }
 
-.nav > .nav-links {
-  display: inline;
-  float: right;
-  font-size: 18px;
-}
-
-.nav > .nav-links > a {
-  display: inline-block;
-  padding: 13px 10px 13px 10px;
+.navigation li a {
+  color: #fff;
   text-decoration: none;
-  color: #rgba(255, 0, 0);
+  font-weight: 500;
+  letter-spacing: 1px;
 }
 
-.nav > .nav-links > a:hover {
-  background-color: rgba(0, 0, 0, 0.3);
+.navigation li:hover a {
+  color: #de0611;
 }
 
-.nav > #nav-check {
-  display: none;
+.search {
+  position: relative;
+  width: 300px;
+  height: 40px;
 }
 
-@media (max-width: 600px) {
-  .nav > .nav-btn {
-    display: inline-block;
-    position: absolute;
-    right: 0px;
-    top: 0px;
-  }
-  .nav > .nav-btn > label {
-    display: inline-block;
-    width: 50px;
-    height: 50px;
-    padding: 13px;
-  }
-  .nav > .nav-btn > label:hover,
-  .nav #nav-check:checked ~ .nav-btn > label {
-    background-color: rgba(0, 0, 0, 0.3);
-  }
-  .nav > .nav-btn > label > span {
-    display: block;
-    width: 25px;
-    height: 10px;
-    border-top: 2px solid #eee;
-  }
-  .nav > .nav-links {
-    position: absolute;
-    display: block;
-    width: 100%;
-    background-color: #333;
-    height: 0px;
-    transition: all 0.3s ease-in;
-    overflow-y: hidden;
-    top: 50px;
-    left: 0px;
-  }
-  .nav > .nav-links > a {
-    display: block;
-    width: 100%;
-  }
-  .nav > #nav-check:not(:checked) ~ .nav-links {
-    height: 0px;
-  }
-  .nav > #nav-check:checked ~ .nav-links {
-    height: calc(100vh - 50px);
-    overflow-y: auto;
-  }
+.search input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  color: #fff;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  outline: none;
+  border-radius: 4px;
+  padding: 0 10px 0 45px;
+  backdrop-filter: blur(10px);
+}
+
+.search input::placeholder {
+  color: #fff;
+}
+
+.search .fa-search {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  padding-right: 10px;
+  color: #fff;
+  border-right: 1px solid #fff;
 }
 </style>

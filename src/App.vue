@@ -16,4 +16,9 @@ export default defineComponent({
 </script>
 
 <style>
+body {
+  background-color: #000;
+  overflow: hidden;
+  color: white;
+}
 </style>
