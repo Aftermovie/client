@@ -4,6 +4,7 @@ import Signup from '../components/accounts/Signup.vue'
 import Login from '../components/accounts/Login.vue'
 import MovieDetail from '../components/movies/MovieDetail.vue'
 import VerticalSlideGenre from '../components/movies/VerticalSlideGenre.vue'
+import SearchMovie from '../components/movies/SearchMovie.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -31,6 +32,12 @@ const routes: Array<RouteRecordRaw> = [
     path: '/movies/genre/:id',
     name: 'movieGenre',
     component: VerticalSlideGenre,
+  },
+  {
+    path: '/search/:keyword',
+    name: 'searchMovie',
+    component: SearchMovie,
+    props: true,
   }
 ]
 

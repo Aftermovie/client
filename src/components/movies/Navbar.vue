@@ -9,18 +9,37 @@
       <li><a href="">My List</a></li>
     </ul>
     <div class="search">
-      <input type="text" placeholder="Search" />
-      <fa icon="search" />
+      <form @submit.prevent="handleSubmit">
+        <input type="text" placeholder="Search" v-model="searchName" />
+        <fa icon="search" />
+      </form>
     </div>
   </header>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
   name: "Navbar",
-  setup() {},
+  setup() {
+    const router = useRouter();
+
+    const searchName = ref<string>("");
+
+    const handleSubmit = () => {
+      console.log(searchName.value);
+
+      router.push({
+        name: "searchMovie",
+        params: { keyword: searchName.value },
+      });
+      searchName.value = "";
+    };
+
+    return { searchName, handleSubmit };
+  },
 });
 </script>
 
