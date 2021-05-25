@@ -1,21 +1,36 @@
 <template>
   <div class="reviews">
-    <form @submit.prevent="handleSubmit">
-      <input type="text" v-model="content" placeholder="Add a new todo..." />
-    </form>
+    <div class="container">
+      <div class="skills">
+        <h3 class="name">평점</h3>
+        <div class="rating">
+          <input type="radio" @click="scoreRank(5)" />
+          <input type="radio" @click="scoreRank(4)" />
+          <input type="radio" @click="scoreRank(3)" />
+          <input type="radio" @click="scoreRank(2)" />
+          <input type="radio" @click="scoreRank(1)" />
+        </div>
+      </div>
+      <form @submit.prevent="handleSubmit">
+        <input
+          type="text"
+          v-model="content"
+          placeholder="새로운 리뷰를 달아주세요."
+        />
+      </form>
+    </div>
 
-    <!-- 8. todo가 다 사라지면 "Woohoo, nothing left todo!" 이게 나오는데
-    어떻게 이 글도 슬라이드 형식으로 등장시킬 수 있을까. -->
-    <!-- mode="out-in"을 적지 않으면 두 개의 스위치가 동시에 발생하고, 
-    그러면 굉장히 이상해진다. 때문에 기존에 있던게 다 나가고 난 다음에 새거가
-    들어올 수 있도록 하는 것이 이 mode이다. -->
     <transition name="switch" mode="out-in">
       <div v-if="reviews.length">
         <transition-group tag="ul" name="list" appear class="row">
           <li v-for="review in reviews" :key="review" class="column">
             <div class="card">
-              {{ review.rank }}
-              {{ review.content }}
+              <div v-for="num of review.rank" :key="num" class="icon">
+                <fa icon="star" />
+              </div>
+              <div class="reviewContent">
+                {{ review.content }}
+              </div>
             </div>
           </li>
         </transition-group>
@@ -33,11 +48,15 @@ import axios from "axios";
 export default defineComponent({
   props: ["movies_reviews", "movieID"],
   setup(props, context) {
-    console.log(props.movies_reviews);
     const reviews = ref<Array<Review>>(props.movies_reviews);
-    console.log(reviews.value);
     const content = ref<string>("");
-    const rank = ref<number>(3);
+    const rank = ref<number>(1);
+
+    const scoreRank = (num: number) => {
+      if (num >= 1 && num <= 5) {
+        rank.value = num;
+      }
+    };
 
     watch(
       () => props.movies_reviews,
@@ -45,6 +64,7 @@ export default defineComponent({
         reviews.value = props.movies_reviews;
       }
     );
+
     const SERVER_URL_POSTREVIEW = `${process.env.VUE_APP_SERVER_URL}/movies/${props.movieID}/reviews/`;
 
     const handleSubmit = async () => {
@@ -61,12 +81,107 @@ export default defineComponent({
       }
     };
 
-    return { reviews, content, rank, handleSubmit };
+    return { reviews, content, rank, scoreRank, handleSubmit };
   },
 });
 </script>
 
 <style scoped>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #0a2b3c;
+}
+
+.container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 30px;
+  margin-right: 70px;
+  border-radius: 10px;
+  box-shadow: -5px -1px 2px rgba(255, 255, 255, 0.25),
+    inset -1px -1px 5px rgba(255, 255, 255, 0.25),
+    8px 30px 30px rgba(0, 0, 0, 0.4), inset -2px -2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.container h2 {
+  margin-bottom: 10px;
+  font-weight: 500;
+  color: #1f9cff;
+}
+
+.container .skills {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
+  padding-right: 10px;
+  box-shadow: -1px -1px 2px rgba(255, 255, 255, 0.25),
+    inset -1px -1px 5px rgba(255, 255, 255, 0.25),
+    8px 30px 30px rgba(0, 0, 0, 0.4), inset -2px -2px 5px rgba(0, 0, 0, 0.3);
+  transition: 0.5s;
+}
+
+.container .skills h3 {
+  min-width: 180px;
+  text-align: right;
+  padding-right: 100px;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 2px;
+}
+
+.container .skills .rating {
+  position: relative;
+  display: flex;
+  margin: 10px 30px 10px 0;
+  flex-direction: row-reverse;
+}
+
+.container .skills .rating input {
+  position: relative;
+  width: 20px;
+  height: 40px;
+  display: flex;
+  margin-left: 10%;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.container .skills .rating input::before {
+  content: "\f005";
+  position: absolute;
+  font-family: fontAwesome;
+  font-size: 34px;
+  position: absolute;
+  left: 4px;
+  color: #030b0f;
+  transition: 0.5s;
+}
+
+.container .skills .rating input:hover ~ input::before,
+.container .skills .rating input:hover::before,
+.container .skills .rating input:checked ~ input::before,
+.container .skills .rating input:checked::before {
+  color: #f00;
+}
+
 .reviews {
   max-width: 70%;
   margin: -400px auto;
@@ -75,15 +190,16 @@ export default defineComponent({
   background-color: rgba(0, 0, 0, 0);
 }
 
-input {
-  width: 90%;
-  margin-left: 2%;
+.reviews input {
+  width: 500%;
+  margin-left: -200%;
   padding: 12px;
   border: 1px solid #eee;
   border-radius: 10px;
   box-sizing: border-box;
   margin-bottom: 20px;
 }
+
 .reviews ul {
   position: relative;
   padding: 0;
@@ -93,13 +209,13 @@ input {
   display: block;
   margin-bottom: 10px;
   padding: 10px;
-  background: white;
+  background: rgba(255, 255, 255, 0.3);
   box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   width: 30%;
   height: 100px;
   box-sizing: border-box;
-  color: black;
+  color: white;
 }
 .reviews li:hover {
   cursor: pointer;
@@ -112,6 +228,11 @@ input {
   margin: 10px;
 }
 
+.column:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 40px 70px rgba(0, 0, 0, 0.5);
+  transition: 0.5s;
+}
 /* Remove extra left and right margins, due to padding in columns */
 .row {
   margin: 0 -5px;
@@ -129,9 +250,24 @@ input {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
   padding: 16px;
   text-align: center;
-  background-color: #f1f1f1;
+  background-color: black;
+  display: flex;
+  max-height: 70px;
 }
 
+.card:hover {
+  transition: 1s;
+  max-height: 200%;
+}
+
+.card .icon {
+  color: red;
+}
+
+.card .reviewContent {
+  margin-left: 5%;
+  overflow: hidden;
+}
 /* Responsive columns - one column layout (vertical) on small screens */
 @media screen and (max-width: 600px) {
   .column {
