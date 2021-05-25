@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, onMounted } from "vue";
 import axios from "axios";
 import MovieDetail from "../../types/MovieDetail";
 
@@ -38,7 +38,9 @@ export default defineComponent({
       }
     };
 
-    load();
+    onMounted(() => {
+      load();
+    });
 
     return { movieDetail, imgURL };
   },
@@ -88,9 +90,19 @@ export default defineComponent({
   color: white;
   z-index: 20;
   top: 50px;
-  margin: 250px 1700px 0px 70px;
+  margin: 15% 60% 0px 3%;
 }
+
+.content h1 {
+  white-space: nowrap;
+}
+
 .content p {
+  font-size: 1em;
+  font-weight: 300;
+  line-height: 1.5em;
+  color: #fff;
+  margin: 10px 0 20px;
   max-width: 1000px;
 }
 

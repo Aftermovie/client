@@ -10,7 +10,7 @@
     </ul>
     <div class="search">
       <input type="text" placeholder="Search" />
-      <i class="fa fa-search" aria-hidden="true"></i>
+      <fa icon="search" />
     </div>
   </header>
 </template>
@@ -35,6 +35,7 @@ header {
   top: 0;
   left: 0;
   width: 100%;
+  height: 100px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -45,7 +46,9 @@ header {
 /* 그냥 큰 사진을 가져와서 이렇게 max-width 속성으로
 이미지 크기를 줄여버려도 되네!!! */
 header .logo img {
+  margin-top: 15px;
   max-width: 150px;
+  max-height: 100px;
 }
 
 .navigation {

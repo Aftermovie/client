@@ -16,9 +16,14 @@ export default defineComponent({
 </script>
 
 <style>
+@font-face {
+  font-family: "koreaCinema";
+  src: url("./assets/font/a시네마B.ttf") format("truetype");
+}
 body {
+  font-family: "koreaCinema";
   background-color: #000;
-  overflow: hidden;
+  /* overflow: hidden; */
   color: white;
 }
 </style>

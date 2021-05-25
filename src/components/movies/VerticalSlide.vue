@@ -13,6 +13,7 @@
       slideShadows: true,
     }"
     :pagination="true"
+    initialSlide="9"
     class="mySwiper"
   >
     <swiper-slide v-for="movie in vertical_movies" :key="movie.id">
@@ -57,6 +58,11 @@ export default defineComponent({
 </script>
 
 <style scoped>
+p {
+  margin: 5rem 0 0 8rem;
+  font-size: 35px;
+}
+
 .swiper-container {
   width: 100%;
   padding-top: 50px;

@@ -1,6 +1,9 @@
 <template>
-  <Carousel :carousel_movies="carousel_movies" />
-  <VerticalSlide :vertical_movies="carousel_movies" />
+  <div>
+    <Carousel :carousel_movies="carousel_movies" />
+    <VerticalSlide :vertical_movies="carousel_movies" />
+    <VerticalSlideGenre />
+  </div>
   <!-- <div class="home">
     <div class="card" v-for="movie in movies" :key="movie">
       {{ movie.title }}
@@ -10,19 +13,20 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from "vue";
+import { computed, defineComponent, ref, onBeforeMount } from "vue";
 import axios from "axios";
 import Movie from "../types/Movie";
 import Carousel from "../components/movies/Carousel.vue";
 import VerticalSlide from "../components/movies/VerticalSlide.vue";
+import VerticalSlideGenre from "../components/movies/VerticalSlideGenre.vue";
 
 export default defineComponent({
   name: "Home",
-  components: { Carousel, VerticalSlide },
+  components: { Carousel, VerticalSlide, VerticalSlideGenre },
   setup() {
     const movies = ref<Movie[]>([]);
 
-    const carousel_movies = computed(() => movies.value.splice(0, 10));
+    const carousel_movies = computed(() => movies.value.splice(0, 20));
 
     const SERVER_URL_GETALLMOVIE = `${process.env.VUE_APP_SERVER_URL}/movies/`;
 
@@ -36,7 +40,9 @@ export default defineComponent({
       }
     };
 
-    load();
+    onBeforeMount(() => {
+      load();
+    });
 
     return {
       movies,
