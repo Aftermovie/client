@@ -25,6 +25,7 @@
         <h1>{{ movieDetail.title }}</h1>
         <h4>{{ movieDetail.release_date }}</h4>
         <p>{{ movieDetail.overview }}</p>
+        <fa class="icon fa-4x" icon="plus-circle" />
       </div>
     </div>
   </div>
@@ -169,6 +170,10 @@ export default defineComponent({
 .content h4 {
   color: rgb(255, 255, 255, 0.5);
   font-weight: 500;
+}
+
+.banner .content .icon {
+  color: white;
 }
 
 .reviewCards img {

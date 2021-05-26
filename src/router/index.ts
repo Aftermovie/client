@@ -20,7 +20,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/accounts/login',
     name: 'Login',
-    component: Login
+    component: Login,
   },
   {
     path: '/movies/:id',

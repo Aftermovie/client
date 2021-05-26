@@ -1,5 +1,12 @@
 <template>
-  <div class="reviews">
+  <div v-if="showModal" class="backdrop">
+    <div class="modal">
+      <p>로그인이 필요한 기능입니다.</p>
+      <button @click="setModal">X</button>
+      <button @click="goLogin">로그인창으로 이동하기</button>
+    </div>
+  </div>
+  <div v-else class="reviews">
     <div class="container">
       <div class="skills">
         <h3 class="name">평점</h3>
@@ -16,6 +23,7 @@
           type="text"
           v-model="content"
           placeholder="새로운 리뷰를 달아주세요."
+          class="reviewInput"
         />
       </form>
     </div>
@@ -43,6 +51,7 @@
 <script lang="ts">
 import { defineComponent, ref, watch } from "vue";
 import { useStore } from "@/store";
+import { useRouter } from "vue-router";
 import Review from "../../types/Review";
 import axios from "axios";
 
@@ -50,10 +59,22 @@ export default defineComponent({
   props: ["movies_reviews", "movieID"],
   setup(props, context) {
     const store = useStore();
+    const router = useRouter();
 
     const reviews = ref<Array<Review>>(props.movies_reviews);
     const content = ref<string>("");
     const rank = ref<number>(1);
+    const showModal = ref<boolean>(false);
+
+    const setModal = () => {
+      showModal.value = !showModal.value;
+    };
+
+    const goLogin = () => {
+      router.push({
+        name: "Login",
+      });
+    };
 
     const scoreRank = (num: number) => {
       if (num >= 1 && num <= 5) {
@@ -86,10 +107,20 @@ export default defineComponent({
         context.emit("update");
       } catch (err) {
         console.log(err);
+        showModal.value = !showModal.value;
       }
     };
 
-    return { reviews, content, rank, scoreRank, handleSubmit };
+    return {
+      reviews,
+      content,
+      rank,
+      setModal,
+      goLogin,
+      showModal,
+      scoreRank,
+      handleSubmit,
+    };
   },
 });
 </script>
@@ -110,6 +141,23 @@ body {
   background: #0a2b3c;
 }
 
+.modal {
+  width: 400px;
+  padding: 20px;
+  margin: 100px auto; /* auto로 좌우 중앙 정렬 */
+  background: white;
+  border-radius: 10px;
+  color: black;
+}
+
+.backdrop {
+  top: 0;
+  position: fixed;
+  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+}
+
 .container {
   position: relative;
   display: flex;
@@ -122,6 +170,10 @@ body {
   box-shadow: -5px -1px 2px rgba(255, 255, 255, 0.25),
     inset -1px -1px 5px rgba(255, 255, 255, 0.25),
     8px 30px 30px rgba(0, 0, 0, 0.4), inset -2px -2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.container .reviewInput {
+  margin-top: 10%;
 }
 
 .container h2 {
@@ -155,7 +207,7 @@ body {
 .container .skills .rating {
   position: relative;
   display: flex;
-  margin: 10px 30px 10px 0;
+  margin: 30px 30px 10px 0;
   flex-direction: row-reverse;
 }
 
@@ -291,6 +343,16 @@ body {
     margin-bottom: 20px;
   }
 }
+
+button {
+  background: #0b6dff;
+  border: 0;
+  padding: 10px 20px;
+  margin-top: 20px;
+  color: white;
+  border-radius: 20px;
+}
+
 /* 6. Group Transition */
 .list-enter-from {
   opacity: 0;
