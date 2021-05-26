@@ -12,7 +12,7 @@
 
     <div class="terms">
       <input type="checkbox" v-model="terms" required />
-      <label>Accept terms and com=ndition</label>
+      <label>Accept terms and condition</label>
     </div>
 
     <div>
@@ -34,16 +34,12 @@
       <button>Create an Account</button>
     </div>
   </form>
-
-  <p>Name: {{ name }}</p>
-  <p>Email: {{ username }}</p>
-  <p>Password: {{ password }}</p>
-  <p>Terms accepted: {{ terms }}</p>
-  <p>Names: {{ preferredGenre }}</p>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
+import { useStore, ActionTypes } from "@/store";
+import { useRouter } from "vue-router";
 import axios from "axios";
 
 export default defineComponent({
@@ -57,6 +53,9 @@ export default defineComponent({
     const terms = ref<boolean>(false);
     const preferredGenre = ref<Array<string>>([]);
     const error = ref<string>("");
+
+    const store = useStore();
+    const router = useRouter();
 
     const handleSubmit = async () => {
       passwordError.value =
@@ -79,11 +78,23 @@ export default defineComponent({
         try {
           console.log(SERVER_URL_SIGNUP);
           console.log(userInformations);
-          const response = await axios.post(
+          const response_signup = await axios.post(
             SERVER_URL_SIGNUP,
             userInformations
           );
-          console.log(response);
+          console.log(response_signup);
+          const credential = {
+            username: username.value,
+            password: password.value,
+          };
+          const response_login = await store.dispatch(
+            ActionTypes.GET_JWT,
+            credential
+          );
+          console.log(response_login);
+          router.push({
+            name: "Home",
+          });
         } catch (err) {
           error.value = err.message; // 백엔드에서 넘어오는 에러에 대한 메세지 이름은 message로 명시할 필요가 있음.
           console.log(error.value);
@@ -109,7 +120,7 @@ export default defineComponent({
 <style scoped>
 form {
   max-width: 420px;
-  margin: 30px auto;
+  margin: 7% auto;
   background: white;
   text-align: left;
   padding: 40px;

@@ -21,12 +21,14 @@
 
 <script lang="ts">
 import { defineComponent, ref, computed } from "vue";
+import { useRouter } from "vue-router";
 import { useStore, ActionTypes } from "@/store";
 
 export default defineComponent({
   name: "Login",
   setup() {
     const store = useStore();
+    const router = useRouter();
 
     const username = ref<string>("");
     const password = ref<string>("");
@@ -40,6 +42,9 @@ export default defineComponent({
         };
         const response = await store.dispatch(ActionTypes.GET_JWT, credential);
         console.log(response);
+        router.push({
+          name: "Home",
+        });
       } catch (err) {
         error.value = err.message; // 백엔드에서 넘어오는 에러에 대한 메세지 이름은 message로 명시할 필요가 있음.
         console.log(error.value);
@@ -58,6 +63,7 @@ export default defineComponent({
       store.dispatch(ActionTypes.DELETE_JWT, credential);
     };
 
+    // console.log(store.state.userToken);
     const chkLogin = computed(() => store.getters.decodedToken);
 
     return { username, password, error, handleSubmit, onLogout, chkLogin };
@@ -66,12 +72,17 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.login {
+  margin-top: 10%;
+}
+
 form {
   max-width: 420px;
   margin: 30px auto;
   background: white;
   text-align: left;
   padding: 40px;
+
   border-radius: 10px;
 }
 label {

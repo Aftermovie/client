@@ -1,12 +1,24 @@
 <template>
   <header>
-    <a href="#" class="logo"><img src="../../assets/img/logo.png" alt="" /></a>
+    <router-link :to="{ name: 'Home' }" class="logo"
+      ><img src="../../assets/img/logo.png" alt=""
+    /></router-link>
     <ul class="navigation">
-      <li><a href="">Home</a></li>
-      <li><a href="">TV Shows</a></li>
-      <li><a href="">Movies</a></li>
-      <li><a href="">Latest</a></li>
+      <li><router-link :to="{ name: 'Home' }">Home</router-link></li>
       <li><a href="">My List</a></li>
+      <li>
+        <router-link :to="{ name: 'Login' }" v-if="!userToken"
+          >Login</router-link
+        >
+      </li>
+      <li>
+        <router-link :to="{ name: 'Signup' }" v-if="!userToken"
+          >Signup</router-link
+        >
+      </li>
+      <li>
+        <div class="logout" v-if="userToken" @click="onLogout">Logout</div>
+      </li>
     </ul>
     <div class="search">
       <form @submit.prevent="handleSubmit">
@@ -18,16 +30,20 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, computed } from "vue";
+import { useStore, ActionTypes } from "@/store";
 import { useRouter } from "vue-router";
 
 export default defineComponent({
   name: "Navbar",
   setup() {
+    const store = useStore();
     const router = useRouter();
 
+    const userToken = computed(() => store.state.userToken);
     const searchName = ref<string>("");
 
+    console.log(userToken);
     const handleSubmit = () => {
       console.log(searchName.value);
 
@@ -38,7 +54,15 @@ export default defineComponent({
       searchName.value = "";
     };
 
-    return { searchName, handleSubmit };
+    const onLogout = () => {
+      const credential = {
+        username: "",
+        password: "",
+      };
+      store.dispatch(ActionTypes.DELETE_JWT, credential);
+    };
+
+    return { searchName, userToken, handleSubmit, onLogout };
   },
 });
 </script>
@@ -72,6 +96,15 @@ header .logo img {
 
 .navigation {
   display: flex;
+}
+
+.navigation .logout {
+  margin-left: -70%;
+}
+
+.navigation .logout:hover {
+  color: #de0611;
+  cursor: pointer;
 }
 
 .navigation li {

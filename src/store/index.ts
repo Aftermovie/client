@@ -83,7 +83,7 @@ export interface Actions {
   ): void;
 }
 
-const SERVER_URL_LOGIN = `${process.env.VUE_APP_SERVER_URL}/accounts/login/`
+const SERVER_URL_LOGIN = `${process.env.VUE_APP_SERVER_URL}/accounts/api-token-auth/`
 
 export const actions: ActionTree<State, State> & Actions = {
   async [ActionTypes.GET_JWT]({ commit }, credential: Credential) {

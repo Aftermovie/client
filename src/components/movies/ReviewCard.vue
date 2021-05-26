@@ -35,19 +35,22 @@
           </li>
         </transition-group>
       </div>
-      <div v-else>아직 리뷰가 없습니다!</div>
+      <div v-else class="noReview">아직 리뷰가 없습니다!</div>
     </transition>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref, watch } from "vue";
+import { useStore } from "@/store";
 import Review from "../../types/Review";
 import axios from "axios";
 
 export default defineComponent({
   props: ["movies_reviews", "movieID"],
   setup(props, context) {
+    const store = useStore();
+
     const reviews = ref<Array<Review>>(props.movies_reviews);
     const content = ref<string>("");
     const rank = ref<number>(1);
@@ -66,6 +69,7 @@ export default defineComponent({
     );
 
     const SERVER_URL_POSTREVIEW = `${process.env.VUE_APP_SERVER_URL}/movies/${props.movieID}/reviews/`;
+    console.log(`JWT ${store.state.userToken}`);
 
     const handleSubmit = async () => {
       try {
@@ -73,7 +77,11 @@ export default defineComponent({
           content: content.value,
           rank: rank.value,
         };
-        const response = await axios.post(SERVER_URL_POSTREVIEW, credential);
+        const response = await axios.post(SERVER_URL_POSTREVIEW, credential, {
+          headers: {
+            Authorization: `JWT ${store.state.userToken}`,
+          },
+        });
         console.log(response);
         context.emit("update");
       } catch (err) {
@@ -267,6 +275,13 @@ body {
 .card .reviewContent {
   margin-left: 5%;
   overflow: hidden;
+}
+
+.noReview {
+  margin-top: 3%;
+  text-align: center;
+  font-weight: bold;
+  font-size: xx-large;
 }
 /* Responsive columns - one column layout (vertical) on small screens */
 @media screen and (max-width: 600px) {
