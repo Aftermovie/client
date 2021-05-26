@@ -5,6 +5,7 @@ import Login from '../components/accounts/Login.vue'
 import MovieDetail from '../components/movies/MovieDetail.vue'
 import VerticalSlideGenre from '../components/movies/VerticalSlideGenre.vue'
 import SearchMovie from '../components/movies/SearchMovie.vue'
+import MyList from '../components/movies/MyList.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -38,6 +39,11 @@ const routes: Array<RouteRecordRaw> = [
     name: 'searchMovie',
     component: SearchMovie,
     props: true,
+  },
+  {
+    path: '/movies/mylist',
+    name: 'MyList',
+    component: MyList
   }
 ]
 

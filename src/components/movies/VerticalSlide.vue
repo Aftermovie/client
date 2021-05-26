@@ -1,5 +1,6 @@
 <template>
-  <p>동균님 이런 영화는 어떠세요?</p>
+  <p v-if="username">{{ username }}님 이런 영화는 어떠세요?</p>
+  <p v-else>이런 영화는 어떠세요?</p>
   <swiper
     :effect="'coverflow'"
     :grabCursor="true"
@@ -52,7 +53,7 @@ export default defineComponent({
     Swiper,
     SwiperSlide,
   },
-  props: ["vertical_movies"],
+  props: ["vertical_movies", "username"],
   setup() {},
 });
 </script>

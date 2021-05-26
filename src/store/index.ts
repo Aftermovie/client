@@ -36,29 +36,35 @@ const state: State = {
 
 export enum MutationTypes {
   GET_JWT = "SET_JWT",
-  DELETE_JWT = "REMOVE_JWT"
+  DELETE_JWT = "REMOVE_JWT",
+  GET_USERNAME = "GET_USERNAME"
 }
 
 export enum ActionTypes {
   GET_JWT = "SET_JWT",
-  DELETE_JWT = "REMOVE_JWT"
+  DELETE_JWT = "REMOVE_JWT",
+  GET_USERNAME = "GET_USERNAME"
 }
 
 //Mutation Types
 export type Mutations<S = State> = {
   [MutationTypes.GET_JWT](state: S, token: string): void;
   [MutationTypes.DELETE_JWT](state: S, credential: Credential): void;
+  [MutationTypes.GET_USERNAME](state: S, name: string): void;
 };
 
 //define mutations
 const mutations: MutationTree<State> & Mutations = {
   [MutationTypes.GET_JWT](state: State, token: string) {
     state.userToken = token
-    console.log(state.userToken)
   },
   [MutationTypes.DELETE_JWT](state: State, credential: Credential) {
     state.userToken = ""
-  }
+    state.username = ""
+  },
+  [MutationTypes.GET_USERNAME](state: State, name: string) {
+    state.username = name
+  },
 };
 
 //actions
@@ -78,6 +84,10 @@ export interface Actions {
     payload: Credential
   ): void;
   [ActionTypes.DELETE_JWT](
+    { commit }: AugmentedActionContext,
+    payload: Credential
+  ): void;
+  [ActionTypes.GET_USERNAME](
     { commit }: AugmentedActionContext,
     payload: Credential
   ): void;
@@ -114,6 +124,9 @@ export const actions: ActionTree<State, State> & Actions = {
   },
   [ActionTypes.DELETE_JWT]({ commit }, credential: Credential) {
     commit(MutationTypes.DELETE_JWT, credential)
+  },
+  [ActionTypes.GET_USERNAME]({ commit }, credential: Credential) {
+    commit(MutationTypes.GET_USERNAME, credential.username)
   }
 };
 

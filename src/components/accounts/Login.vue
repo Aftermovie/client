@@ -42,11 +42,20 @@ export default defineComponent({
         };
         const response = await store.dispatch(ActionTypes.GET_JWT, credential);
         console.log(response);
+
         const response_profile = await axios.get(SERVER_URL_GETPROFILE, {
           headers: {
             Authorization: `JWT ${store.state.userToken}`,
           },
         });
+        const credential_getusername = {
+          username: response_profile.data.name,
+          password: password.value,
+        };
+        const response_getusername = await store.dispatch(
+          ActionTypes.GET_USERNAME,
+          credential_getusername
+        );
         console.log(response_profile);
         router.push({
           name: "Home",

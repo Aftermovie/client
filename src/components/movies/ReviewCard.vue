@@ -1,50 +1,54 @@
 <template>
-  <div v-if="showModal" class="backdrop">
-    <div class="modal">
-      <p>로그인이 필요한 기능입니다.</p>
-      <button @click="setModal">X</button>
-      <button @click="goLogin">로그인창으로 이동하기</button>
-    </div>
-  </div>
-  <div v-else class="reviews">
-    <div class="container">
-      <div class="skills">
-        <h3 class="name">평점</h3>
-        <div class="rating">
-          <input type="radio" @click="scoreRank(5)" />
-          <input type="radio" @click="scoreRank(4)" />
-          <input type="radio" @click="scoreRank(3)" />
-          <input type="radio" @click="scoreRank(2)" />
-          <input type="radio" @click="scoreRank(1)" />
+  <div>
+    <transition name="modal">
+      <div v-if="showModal" class="backdrop">
+        <div class="modal">
+          <p>로그인이 필요한 페이지입니다.</p>
+          <button @click="setModal">X</button>
+          <button @click="goLogin">로그인창으로 이동하기</button>
         </div>
       </div>
-      <form @submit.prevent="handleSubmit">
-        <input
-          type="text"
-          v-model="content"
-          placeholder="새로운 리뷰를 달아주세요."
-          class="reviewInput"
-        />
-      </form>
-    </div>
-
-    <transition name="switch" mode="out-in">
-      <div v-if="reviews.length">
-        <transition-group tag="ul" name="list" appear class="row">
-          <li v-for="review in reviews" :key="review" class="column">
-            <div class="card">
-              <div v-for="num of review.rank" :key="num" class="icon">
-                <fa icon="star" />
-              </div>
-              <div class="reviewContent">
-                {{ review.content }}
-              </div>
-            </div>
-          </li>
-        </transition-group>
-      </div>
-      <div v-else class="noReview">아직 리뷰가 없습니다!</div>
     </transition>
+    <div class="reviews">
+      <div class="container">
+        <div class="skills">
+          <h3 class="name">평점</h3>
+          <div class="rating">
+            <input type="radio" @click="scoreRank(5)" />
+            <input type="radio" @click="scoreRank(4)" />
+            <input type="radio" @click="scoreRank(3)" />
+            <input type="radio" @click="scoreRank(2)" />
+            <input type="radio" @click="scoreRank(1)" />
+          </div>
+        </div>
+        <form @submit.prevent="handleSubmit">
+          <input
+            type="text"
+            v-model="content"
+            placeholder="새로운 리뷰를 달아주세요."
+            class="reviewInput"
+          />
+        </form>
+      </div>
+
+      <transition name="switch" mode="out-in">
+        <div v-if="reviews.length">
+          <transition-group tag="ul" name="list" appear class="row">
+            <li v-for="review in reviews" :key="review" class="column">
+              <div class="card">
+                <div v-for="num of review.rank" :key="num" class="icon">
+                  <fa icon="star" />
+                </div>
+                <div class="reviewContent">
+                  {{ review.content }}
+                </div>
+              </div>
+            </li>
+          </transition-group>
+        </div>
+        <div v-else class="noReview">아직 리뷰가 없습니다!</div>
+      </transition>
+    </div>
   </div>
 </template>
 
@@ -156,6 +160,25 @@ body {
   background: rgba(0, 0, 0, 0.5);
   width: 100%;
   height: 100%;
+  z-index: 100;
+}
+
+.modal-enter-from {
+  opacity: 0;
+  transform: translateY(-60px);
+}
+
+.modal-enter-active {
+  transition: all 0.5s ease;
+}
+
+.modal-leave-to {
+  opacity: 0;
+  transform: translateY(-60px);
+}
+
+.modal-leave-active {
+  transition: all 0.5s ease;
 }
 
 .container {

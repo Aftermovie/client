@@ -1,13 +1,22 @@
 <template>
-  <!-- <div>search</div> -->
-  <!-- {{ $route.params.keyword }} -->
-  <div class="container">
-    <div class="card" v-for="movie in movies" :key="movie.id">
-      <div class="box">
-        <div class="content">
-          <div class="imgHover"></div>
-          <img :src="movie.poster_path" alt="" />
-          <h3>{{ movie.title }}</h3>
+  <div>
+    <transition name="modal">
+      <div v-if="showModal" class="backdrop">
+        <div class="modal">
+          <p>로그인이 필요한 페이지입니다.</p>
+          <button @click="setModal">X</button>
+          <button @click="goLogin">로그인창으로 이동하기</button>
+        </div>
+      </div>
+    </transition>
+    <div class="container">
+      <div class="card" v-for="movie in movies" :key="movie.id">
+        <div class="box">
+          <div class="content">
+            <div class="imgHover"></div>
+            <img :src="movie.poster_path" alt="" />
+            <h3>{{ movie.title }}</h3>
+          </div>
         </div>
       </div>
     </div>
@@ -15,41 +24,53 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onBeforeMount } from "vue";
-import Movie from "../../types/Movie";
+import { defineComponent, onBeforeMount, ref } from "vue";
 import axios from "axios";
+import { useRouter } from "vue-router";
+import { useStore } from "@/store";
+import Movie from "../../types/Movie";
 
 export default defineComponent({
-  props: ["keyword"],
-  setup(props) {
-    console.log(props.keyword);
+  setup() {
+    const store = useStore();
+    const router = useRouter();
+
+    const showModal = ref<boolean>(false);
+    if (!store.state.userToken) {
+      showModal.value = !showModal.value;
+    }
 
     const movies = ref<Movie[]>([]);
-    const keyword = ref<string>(props.keyword);
+    const SERVER_URL_GETMYLIST = `${process.env.VUE_APP_SERVER_URL}/accounts/profile/`;
 
-    console.log(keyword);
-    const SERVER_URL_GETSEARCHEDMOVIE = `${process.env.VUE_APP_SERVER_URL}/movies/`;
-
-    const data = {
-      target: props.keyword,
-    };
-
-    const load = async () => {
-      console.log("123123");
+    const getMyList = async () => {
       try {
-        const response = await axios.post(SERVER_URL_GETSEARCHEDMOVIE, data);
-        console.log(response.data);
-        movies.value = response.data;
+        const response_getMyList = await axios.get(SERVER_URL_GETMYLIST, {
+          headers: {
+            Authorization: `JWT ${store.state.userToken}`,
+          },
+        });
+        console.log(response_getMyList);
+        movies.value = response_getMyList.data.wish_movies;
       } catch (err) {
         console.log(err);
       }
     };
 
+    const setModal = () => {
+      showModal.value = !showModal.value;
+    };
+
+    const goLogin = () => {
+      router.push({
+        name: "Login",
+      });
+    };
     onBeforeMount(() => {
-      load();
+      getMyList();
     });
 
-    return { movies, keyword };
+    return { movies, showModal, setModal, goLogin };
   },
 });
 </script>
@@ -68,6 +89,42 @@ body {
   flex-wrap: wrap;
   min-height: 100vh;
   background: #232427;
+}
+.modal {
+  width: 400px;
+  padding: 20px;
+  margin: 100px auto; /* auto로 좌우 중앙 정렬 */
+  background: white;
+  border-radius: 10px;
+  color: black;
+  text-align: center;
+}
+
+.backdrop {
+  top: 0;
+  position: fixed;
+  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  z-index: 10000;
+}
+
+.modal-enter-from {
+  opacity: 0;
+  transform: translateY(-60px);
+}
+
+.modal-enter-active {
+  transition: all 0.5s ease;
+}
+
+.modal-leave-to {
+  opacity: 0;
+  transform: translateY(-60px);
+}
+
+.modal-leave-active {
+  transition: all 0.5s ease;
 }
 
 .container {

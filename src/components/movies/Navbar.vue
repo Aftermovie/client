@@ -5,7 +5,7 @@
     /></router-link>
     <ul class="navigation">
       <li><router-link :to="{ name: 'Home' }">Home</router-link></li>
-      <li><a href="">My List</a></li>
+      <li><router-link :to="{ name: 'MyList' }">My List</router-link></li>
       <li>
         <router-link :to="{ name: 'Login' }" v-if="!userToken"
           >Login</router-link
