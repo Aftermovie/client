@@ -105,7 +105,7 @@ export default defineComponent({
         name: name.value,
         username: username.value,
         password: password.value,
-        preferredGenre: preferredGenre.value,
+        genres: preferredGenre.value,
       };
 
       const SERVER_URL_SIGNUP = `${process.env.VUE_APP_SERVER_URL}/accounts/signup/`;

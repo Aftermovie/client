@@ -1,7 +1,7 @@
 <template>
   <header>
     <router-link :to="{ name: 'Home' }" class="logo"
-      ><img src="../../assets/img/logo.png" alt=""
+      ><img src="../../../assets/img/logo.png" alt=""
     /></router-link>
     <ul class="navigation">
       <li><router-link :to="{ name: 'Home' }">Home</router-link></li>

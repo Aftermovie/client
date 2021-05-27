@@ -16,7 +16,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, onBeforeMount } from "vue";
-import Movie from "../../types/Movie";
+import Movie from "../../../types/Movie";
 import axios from "axios";
 
 export default defineComponent({

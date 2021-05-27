@@ -4,7 +4,7 @@ import Signup from '../components/accounts/SignupPage/Signup.vue'
 import Login from '../components/accounts/LoginPage/Login.vue'
 import MovieDetail from '../components/movies/DetailPage/MovieDetail.vue'
 import VerticalSlideGenre from '../components/movies/MainPage/VerticalSlideGenre.vue'
-import SearchMovie from '../components/movies/SearchMovie.vue'
+import SearchMovie from '../components/movies/Navbar/SearchMovie.vue'
 import MyList from '../components/movies/MyListPage/MyList.vue'
 
 const routes: Array<RouteRecordRaw> = [
