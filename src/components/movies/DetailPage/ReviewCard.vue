@@ -39,7 +39,7 @@
       <transition name="switch" mode="out-in">
         <div v-if="reviews.length">
           <transition-group tag="ul" name="list" appear class="row">
-            <li v-for="review in reviews" :key="review" class="column">
+            <li v-for="(review, idx) in reviews" :key="idx" class="column">
               <div class="card">
                 <div class="columnArrange">
                   <div v-for="num of review.rank" :key="num" class="icon">
@@ -53,8 +53,13 @@
                   {{ review.content }}
                 </div>
               </div>
-              <fa icon="thumbs-up" @click="likeReview(review.id)" />
-              {{ review.likes_count }} <fa icon="thumbs-down" />
+              <fa icon="thumbs-up" @click="likeReview(review.id, idx)" />
+              {{ review.likes_count }}
+              <fa
+                class="iconRight"
+                icon="thumbs-down"
+                @click="dislikeReview(review.id, idx)"
+              />
               {{ review.dislikes_count }}
             </li>
           </transition-group>
@@ -83,7 +88,6 @@ export default defineComponent({
     const rank = ref<number>(1);
     const showModal = ref<boolean>(false);
     const errorMessage = ref<string>("");
-    const componentKey = ref<number>(0);
 
     const setModal = () => {
       showModal.value = !showModal.value;
@@ -136,7 +140,7 @@ export default defineComponent({
       }
     };
 
-    const likeReview = async (id: number) => {
+    const likeReview = async (id: number, idx: number) => {
       const SERVER_URL_POSTREVIEWLIKE = `${process.env.VUE_APP_SERVER_URL}/movies/reviews/${id}/`;
       console.log(SERVER_URL_POSTREVIEWLIKE);
       console.log(`JWT ${store.state.userToken}`);
@@ -153,8 +157,44 @@ export default defineComponent({
             },
           }
         );
+        console.log(reviews.value[0]);
+        console.log(response.data.likeCnt);
         console.log(response);
-        componentKey.value += 1;
+        // reviews.value[id].likes_count = response.data.likeCnt;
+        // reviews.value[id].dislikes_count = response.data.dilikeCnt;
+        console.log(props.movies_reviews[idx]);
+        props.movies_reviews[idx].likes_count = response.data.likeCnt;
+        props.movies_reviews[idx].dislikes_count = response.data.dislikeCnt;
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    const dislikeReview = async (id: number, idx: number) => {
+      const SERVER_URL_POSTREVIEWLIKE = `${process.env.VUE_APP_SERVER_URL}/movies/reviews/${id}/`;
+      console.log(SERVER_URL_POSTREVIEWLIKE);
+      console.log(`JWT ${store.state.userToken}`);
+      const credential = {
+        target: "dislike",
+      };
+      try {
+        const response = await axios.post(
+          SERVER_URL_POSTREVIEWLIKE,
+          credential,
+          {
+            headers: {
+              Authorization: `JWT ${store.state.userToken}`,
+            },
+          }
+        );
+        console.log(reviews.value[0]);
+        console.log(response.data.dislikeCnt);
+        console.log(response);
+        // reviews.value[id].likes_count = response.data.likeCnt;
+        // reviews.value[id].dislikes_count = response.data.dilikeCnt;
+        console.log(props.movies_reviews[idx]);
+        props.movies_reviews[idx].likes_count = response.data.likeCnt;
+        props.movies_reviews[idx].dislikes_count = response.data.dislikeCnt;
       } catch (err) {
         console.log(err);
       }
@@ -171,6 +211,7 @@ export default defineComponent({
       scoreRank,
       handleSubmit,
       likeReview,
+      dislikeReview,
     };
   },
 });
