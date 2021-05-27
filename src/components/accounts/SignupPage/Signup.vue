@@ -127,15 +127,20 @@ export default defineComponent({
             ActionTypes.GET_JWT,
             credential
           );
-          console.log(response_login);
+          const credential_getusername = {
+            username: name.value,
+            password: password.value,
+          };
+          const response_getusername = await store.dispatch(
+            ActionTypes.GET_USERNAME,
+            credential_getusername
+          );
           router.push({
             name: "Home",
           });
         } catch (err) {
           const response = err.response;
           console.log(response);
-          // console.log(err.response.data.message);
-          // error.value = JSON.stringify(JSON.parse(err.reponse.data.message)); // 백엔드에서 넘어오는 에러에 대한 메세지 이름은 message로 명시할 필요가 있음.
           error.value = response.data.message;
         }
       }
