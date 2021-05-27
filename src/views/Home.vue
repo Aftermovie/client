@@ -1,7 +1,10 @@
 <template>
   <div>
     <Carousel :carousel_movies="carousel_movies" />
-    <VerticalSlide :vertical_movies="carousel_movies" :username="username" />
+    <VerticalSlide
+      :vertical_movies="vertical_slide_movies"
+      :username="username"
+    />
     <VerticalSlideGenre />
     <Footer />
   </div>
@@ -25,7 +28,9 @@ export default defineComponent({
 
     const movies = ref<Movie[]>([]);
 
-    const carousel_movies = computed(() => movies.value.splice(0, 20));
+    const carousel_movies = computed(() => movies.value.slice(0, 20));
+    const vertical_slide_movies = computed(() => movies.value.slice(20, 41));
+
     const username = computed(() => store.state.username);
 
     const SERVER_URL_GETALLMOVIE = `${process.env.VUE_APP_SERVER_URL}/movies/`;
@@ -49,6 +54,7 @@ export default defineComponent({
       username,
       load,
       carousel_movies,
+      vertical_slide_movies,
     };
   },
 });

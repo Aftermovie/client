@@ -70,6 +70,7 @@ export default defineComponent({
     const imgURL = ref<string>("");
     const showReview = ref<boolean>(false);
     const movieReviews = computed(() => movieDetail?.value?.reviews);
+
     const showModal = ref<boolean>(false);
     const usertoken = computed(() => store.state.userToken);
     const showHeader = ref<boolean>(false);
@@ -82,6 +83,7 @@ export default defineComponent({
       try {
         const response = await axios.get(SERVER_URL_GETMOVIEDETAIL);
         movieDetail.value = response.data;
+        console.log(response.data);
         const re = /w1280/g;
         imgURL.value = response.data.image.replace(re, "original");
       } catch (err) {

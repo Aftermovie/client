@@ -83,6 +83,7 @@ export default defineComponent({
     const rank = ref<number>(1);
     const showModal = ref<boolean>(false);
     const errorMessage = ref<string>("");
+    const componentKey = ref<number>(0);
 
     const setModal = () => {
       showModal.value = !showModal.value;
@@ -136,16 +137,24 @@ export default defineComponent({
     };
 
     const likeReview = async (id: number) => {
-      const SERVER_URL_POSTREVIEWLIKE = `${process.env.VUE_APP_SERVER_URL}/movies/reviews/${id}/like/`;
+      const SERVER_URL_POSTREVIEWLIKE = `${process.env.VUE_APP_SERVER_URL}/movies/reviews/${id}/`;
       console.log(SERVER_URL_POSTREVIEWLIKE);
       console.log(`JWT ${store.state.userToken}`);
+      const credential = {
+        target: "like",
+      };
       try {
-        const response = await axios.post(SERVER_URL_POSTREVIEWLIKE, {
-          headers: {
-            Authorization: `JWT ${store.state.userToken}`,
-          },
-        });
+        const response = await axios.post(
+          SERVER_URL_POSTREVIEWLIKE,
+          credential,
+          {
+            headers: {
+              Authorization: `JWT ${store.state.userToken}`,
+            },
+          }
+        );
         console.log(response);
+        componentKey.value += 1;
       } catch (err) {
         console.log(err);
       }
