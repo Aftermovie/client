@@ -20,6 +20,7 @@ import Movie from "../../types/Movie";
 import axios from "axios";
 
 export default defineComponent({
+  name: "SearchMovie",
   props: ["keyword"],
   setup(props) {
     console.log(props.keyword);

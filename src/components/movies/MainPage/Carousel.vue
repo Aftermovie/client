@@ -28,12 +28,12 @@ import "swiper/swiper.scss";
 import "swiper/components/pagination/pagination.min.css";
 import "swiper/components/navigation/navigation.min.css";
 import SwiperCore, { Autoplay, Pagination, Navigation } from "swiper/core";
-import Movie from "../../types/Movie";
+import Movie from "../../../types/Movie";
 
 SwiperCore.use([Autoplay, Pagination, Navigation]);
 
 export default defineComponent({
-  name: "App",
+  name: "Carousel",
   components: {
     Swiper,
     SwiperSlide,
@@ -66,41 +66,4 @@ export default defineComponent({
 });
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-.swiper-container {
-  width: 100%;
-  height: 550px;
-}
-
-.swiper-slide {
-  font-size: 18px;
-  background: #fff;
-  display: flex;
-}
-
-.swiper-slide img {
-  display: block;
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-.swiper-slide .content {
-  position: absolute;
-  max-width: 500px;
-  bottom: 2rem;
-  margin-left: 2rem;
-  font-size: 1rem;
-  z-index: 100;
-}
-
-.swiper-slide .content h2 {
-  color: white;
-}
-
-.swiper-slide .content p {
-  color: white;
-  font-size: 1rem;
-}
-</style>
+<style src="./Carousel.css" scoped></style>

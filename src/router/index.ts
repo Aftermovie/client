@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import Home from '../views/Home.vue'
-import Signup from '../components/accounts/Signup.vue'
-import Login from '../components/accounts/Login.vue'
-import MovieDetail from '../components/movies/MovieDetail.vue'
-import VerticalSlideGenre from '../components/movies/VerticalSlideGenre.vue'
+import Signup from '../components/accounts/SignupPage/Signup.vue'
+import Login from '../components/accounts/LoginPage/Login.vue'
+import MovieDetail from '../components/movies/DetailPage/MovieDetail.vue'
+import VerticalSlideGenre from '../components/movies/MainPage/VerticalSlideGenre.vue'
 import SearchMovie from '../components/movies/SearchMovie.vue'
-import MyList from '../components/movies/MyList.vue'
+import MyList from '../components/movies/MyListPage/MyList.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {

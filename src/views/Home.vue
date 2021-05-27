@@ -16,9 +16,9 @@
 import { computed, defineComponent, ref, onBeforeMount } from "vue";
 import axios from "axios";
 import Movie from "../types/Movie";
-import Carousel from "../components/movies/Carousel.vue";
-import VerticalSlide from "../components/movies/VerticalSlide.vue";
-import VerticalSlideGenre from "../components/movies/VerticalSlideGenre.vue";
+import Carousel from "../components/movies/MainPage/Carousel.vue";
+import VerticalSlide from "../components/movies/MainPage/VerticalSlide.vue";
+import VerticalSlideGenre from "../components/movies/MainPage/VerticalSlideGenre.vue";
 import { useStore } from "@/store";
 
 export default defineComponent({

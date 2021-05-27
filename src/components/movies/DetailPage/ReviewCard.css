@@ -1,0 +1,294 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+  }
+  
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #0a2b3c;
+  }
+  
+  .modal {
+    width: 400px;
+    padding: 20px;
+    margin: 100px auto; /* auto로 좌우 중앙 정렬 */
+    background: white;
+    border-radius: 10px;
+    color: black;
+  }
+  
+  .backdrop {
+    top: 0;
+    position: fixed;
+    background: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+  }
+  
+  .modal-enter-from {
+    opacity: 0;
+    transform: translateY(-60px);
+  }
+  
+  .modal-enter-active {
+    transition: all 0.5s ease;
+  }
+  
+  .modal-leave-to {
+    opacity: 0;
+    transform: translateY(-60px);
+  }
+  
+  .modal-leave-active {
+    transition: all 0.5s ease;
+  }
+  
+  .container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 30px;
+    margin-right: 70px;
+    border-radius: 10px;
+    box-shadow: -5px -1px 2px rgba(255, 255, 255, 0.25),
+      inset -1px -1px 5px rgba(255, 255, 255, 0.25),
+      8px 30px 30px rgba(0, 0, 0, 0.4), inset -2px -2px 5px rgba(0, 0, 0, 0.3);
+  }
+  
+  .container .reviewInput {
+    margin-top: 10%;
+  }
+  
+  .container h2 {
+    margin-bottom: 10px;
+    font-weight: 500;
+    color: #1f9cff;
+  }
+  
+  .container .skills {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+    padding-right: 10px;
+    box-shadow: -1px -1px 2px rgba(255, 255, 255, 0.25),
+      inset -1px -1px 5px rgba(255, 255, 255, 0.25),
+      8px 30px 30px rgba(0, 0, 0, 0.4), inset -2px -2px 5px rgba(0, 0, 0, 0.3);
+    transition: 0.5s;
+  }
+  
+  .container .skills h3 {
+    min-width: 180px;
+    text-align: right;
+    padding-right: 100px;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: 2px;
+  }
+  
+  .container .skills .rating {
+    position: relative;
+    display: flex;
+    margin: 30px 30px 10px 0;
+    flex-direction: row-reverse;
+  }
+  
+  .container .skills .rating input {
+    position: relative;
+    width: 20px;
+    height: 40px;
+    display: flex;
+    margin-left: 10%;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  
+  .container .skills .rating input::before {
+    content: "\f005";
+    position: absolute;
+    font-family: fontAwesome;
+    font-size: 34px;
+    position: absolute;
+    left: 4px;
+    color: #030b0f;
+    transition: 0.5s;
+  }
+  
+  .container .skills .rating input:hover ~ input::before,
+  .container .skills .rating input:hover::before,
+  .container .skills .rating input:checked ~ input::before,
+  .container .skills .rating input:checked::before {
+    color: #f00;
+  }
+  
+  .reviews {
+    max-width: 70%;
+    margin: -400px auto;
+    position: relative;
+    color: white;
+    background-color: rgba(0, 0, 0, 0);
+  }
+  
+  .reviews input {
+    width: 500%;
+    margin-left: -200%;
+    padding: 12px;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+  }
+  
+  .reviews ul {
+    position: relative;
+    padding: 0;
+  }
+  .reviews li {
+    list-style-type: none;
+    display: block;
+    margin-bottom: 10px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    width: 30%;
+    height: 100px;
+    box-sizing: border-box;
+    color: white;
+  }
+  .reviews li:hover {
+    cursor: pointer;
+  }
+  
+  .column {
+    float: left;
+    width: 25%;
+    padding: 0 10px;
+    margin: 10px;
+  }
+  
+  .column:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 40px 70px rgba(0, 0, 0, 0.5);
+    transition: 0.5s;
+  }
+  /* Remove extra left and right margins, due to padding in columns */
+  .row {
+    margin: 0 -5px;
+  }
+  
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  /* Style the counter cards */
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
+    padding: 16px;
+    text-align: center;
+    background-color: black;
+    display: flex;
+    max-height: 70px;
+  }
+  
+  .card:hover {
+    transition: 1s;
+    max-height: 200%;
+  }
+  
+  .card .icon {
+    color: red;
+  }
+  
+  .card .reviewContent {
+    margin-left: 5%;
+    overflow: hidden;
+  }
+  
+  .noReview {
+    margin-top: 3%;
+    text-align: center;
+    font-weight: bold;
+    font-size: xx-large;
+  }
+  /* Responsive columns - one column layout (vertical) on small screens */
+  @media screen and (max-width: 600px) {
+    .column {
+      width: 100%;
+      display: block;
+      margin-bottom: 20px;
+    }
+  }
+  
+  button {
+    background: #0b6dff;
+    border: 0;
+    padding: 10px 20px;
+    margin-top: 20px;
+    color: white;
+    border-radius: 20px;
+  }
+  
+  /* 6. Group Transition */
+  .list-enter-from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  .list-enter-to {
+    opacity: 1;
+    transform: scale(1);
+  }
+  .list-enter-active {
+    transition: all 1s ease;
+  }
+  .list-leave-from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  .list-leave-to {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  .list-leave-active {
+    transition: all 1s ease;
+    position: absolute; /* absolute를 넣어야 삭제 될 때도 슬라이드로 삭제된다.*/
+  }
+  
+  /* 7. Move transition */
+  /* 추가될 때 자연스럽게 슬라이드 형식으로 진행되는 코드 */
+  .list-move {
+    transition: all 0.5s ease;
+  }
+  
+  /* 8. switch transitions */
+  .switch-enter-from,
+  .switch-leave-to {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  .switch-enter-to,
+  .switch-leave-from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .switch-enter-active {
+    transition: all 0.5s ease;
+  }
+  .switch-leave-active {
+    transition: all 0.5s ease;
+  }
