@@ -19,7 +19,7 @@
   >
     <swiper-slide v-for="movie in movies" :key="movie.id">
       <!-- {{ movie.title }} -->
-      <router-link :to="{ name: 'movieDetail', params: { id: movie.id } }">
+      <router-link :to="{ name: 'MovieDetail', params: { id: movie.id } }">
         <img
           :src="movie.poster_path"
           alt=""
@@ -36,7 +36,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, onBeforeMount } from "vue";
 import axios from "axios";
 import Movie from "../../../types/Movie";
 import { Swiper, SwiperSlide } from "swiper/vue";
@@ -65,13 +65,14 @@ export default defineComponent({
       try {
         const response = await axios.get(SERVER_URL_GETGENREMOVIE);
         movies.value = response.data.splice(0, 20);
-        console.log(response);
       } catch (err) {
         console.log(err);
       }
     };
 
-    load();
+    onBeforeMount(() => {
+      load();
+    });
 
     return { movies };
   },

@@ -51,7 +51,6 @@ export default defineComponent({
             Authorization: `JWT ${store.state.userToken}`,
           },
         });
-        console.log(response_getMyList);
         movies.value = response_getMyList.data.wish_movies;
       } catch (err) {
         console.log(err);
@@ -67,6 +66,7 @@ export default defineComponent({
         name: "Login",
       });
     };
+
     onBeforeMount(() => {
       getMyList();
     });

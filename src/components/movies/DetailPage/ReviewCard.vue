@@ -94,7 +94,6 @@ export default defineComponent({
     );
 
     const SERVER_URL_POSTREVIEW = `${process.env.VUE_APP_SERVER_URL}/movies/${props.movieID}/reviews/`;
-    console.log(`JWT ${store.state.userToken}`);
 
     const handleSubmit = async () => {
       try {
@@ -107,7 +106,6 @@ export default defineComponent({
             Authorization: `JWT ${store.state.userToken}`,
           },
         });
-        console.log(response);
         context.emit("update");
       } catch (err) {
         console.log(err);

@@ -70,11 +70,10 @@ export default defineComponent({
         password: password.value,
         preferredGenre: preferredGenre.value,
       };
-      console.log("chk");
+
       const SERVER_URL_SIGNUP = `${process.env.VUE_APP_SERVER_URL}/accounts/signup/`;
 
       if (!passwordError.value) {
-        console.log("chk222");
         try {
           console.log(SERVER_URL_SIGNUP);
           console.log(userInformations);

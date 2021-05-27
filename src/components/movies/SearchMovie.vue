@@ -1,8 +1,6 @@
 <template>
-  <!-- <div>search</div> -->
-  <!-- {{ $route.params.keyword }} -->
   <div class="container">
-    <div class="card" v-for="movie in movies" :key="movie.id">
+    <div class="card" v-for="movie in movies" :key="movie">
       <div class="box">
         <div class="content">
           <div class="imgHover"></div>
@@ -36,7 +34,6 @@ export default defineComponent({
     };
 
     const load = async () => {
-      console.log("123123");
       try {
         const response = await axios.post(SERVER_URL_GETSEARCHEDMOVIE, data);
         console.log(response.data);

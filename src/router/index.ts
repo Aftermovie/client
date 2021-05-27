@@ -25,18 +25,18 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/movies/:id',
-    name: 'movieDetail',
+    name: 'MovieDetail',
     component: MovieDetail,
     props: true,
   },
   {
     path: '/movies/genre/:id',
-    name: 'movieGenre',
+    name: 'VerticalSlideGenre',
     component: VerticalSlideGenre,
   },
   {
     path: '/search/:keyword',
-    name: 'searchMovie',
+    name: 'SearchMovie',
     component: SearchMovie,
     props: true,
   },

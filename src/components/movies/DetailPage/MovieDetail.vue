@@ -73,7 +73,6 @@ export default defineComponent({
 
         const re = /w1280/g;
         imgURL.value = response.data.image.replace(re, "original");
-        console.log(response.data);
       } catch (err) {
         console.log(err);
       }
@@ -100,7 +99,6 @@ export default defineComponent({
 
     const addFavoriteMovie = async () => {
       try {
-        console.log(movieDetail?.value?.id);
         const data = {
           want_movie_id: movieDetail?.value?.id,
         };
@@ -113,7 +111,6 @@ export default defineComponent({
             },
           }
         );
-        console.log(response_addFavoriteMovie);
         showModal.value = !showModal.value;
         setTimeout(() => {
           showModal.value = !showModal.value;

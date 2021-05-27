@@ -4,12 +4,6 @@
     <VerticalSlide :vertical_movies="carousel_movies" :username="username" />
     <VerticalSlideGenre />
   </div>
-  <!-- <div class="home">
-    <div class="card" v-for="movie in movies" :key="movie">
-      {{ movie.title }}
-      <img :src="movie.poster_path" alt="" />
-    </div>
-  </div> -->
 </template>
 
 <script lang="ts">
@@ -31,9 +25,7 @@ export default defineComponent({
 
     const carousel_movies = computed(() => movies.value.splice(0, 20));
     const username = computed(() => store.state.username);
-    // if (store.state.username) {
-    //   username.value = store.state.username;
-    // }
+
     const SERVER_URL_GETALLMOVIE = `${process.env.VUE_APP_SERVER_URL}/movies/`;
 
     const load = async () => {
@@ -45,7 +37,7 @@ export default defineComponent({
         console.log(err);
       }
     };
-    console.log("ssssssssssss" + username.value);
+
     onBeforeMount(() => {
       load();
     });

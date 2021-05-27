@@ -43,12 +43,9 @@ export default defineComponent({
     const userToken = computed(() => store.state.userToken);
     const searchName = ref<string>("");
 
-    console.log(userToken);
     const handleSubmit = () => {
-      console.log(searchName.value);
-
       router.push({
-        name: "searchMovie",
+        name: "SearchMovie",
         params: { keyword: searchName.value },
       });
       searchName.value = "";
