@@ -61,7 +61,7 @@ export default defineComponent({
           name: "Home",
         });
       } catch (err) {
-        error.value = err.message; // 백엔드에서 넘어오는 에러에 대한 메세지 이름은 message로 명시할 필요가 있음.
+        error.value = "아이디 혹은 비밀번호가 다릅니다."; // 백엔드에서 넘어오는 에러에 대한 메세지 이름은 message로 명시할 필요가 있음.
         console.log(error.value);
       }
     };

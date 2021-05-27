@@ -8,6 +8,9 @@
 
     <label>Password:</label>
     <input type="password" required v-model="password" />
+
+    <label>Password Confirm:</label>
+    <input type="password" required v-model="passwordConfirmation" />
     <div v-if="passwordError" class="error">{{ passwordError }}</div>
 
     <div class="terms">
@@ -81,7 +84,7 @@ export default defineComponent({
     const passwordError = ref<string>("");
     const terms = ref<boolean>(false);
     const preferredGenre = ref<Array<number>>([]);
-    const error = ref<string>("");
+    const error = ref<string>(" ");
 
     const store = useStore();
     const router = useRouter();
@@ -90,7 +93,12 @@ export default defineComponent({
       passwordError.value =
         password.value.length > 5
           ? ""
-          : "Password must be at least 6 chars long.";
+          : "비밀번호는 최소 6글자 이상이어야 합니다.";
+
+      passwordError.value =
+        password.value === passwordConfirmation.value
+          ? ""
+          : "비밀번호와 비밀번호 확인이 다릅니다.";
 
       // there is no error.
       const userInformations = {
@@ -124,8 +132,11 @@ export default defineComponent({
             name: "Home",
           });
         } catch (err) {
-          error.value = err.message; // 백엔드에서 넘어오는 에러에 대한 메세지 이름은 message로 명시할 필요가 있음.
-          console.log(err.data);
+          const response = err.response;
+          console.log(response);
+          // console.log(err.response.data.message);
+          // error.value = JSON.stringify(JSON.parse(err.reponse.data.message)); // 백엔드에서 넘어오는 에러에 대한 메세지 이름은 message로 명시할 필요가 있음.
+          error.value = response.data.message;
         }
       }
     };

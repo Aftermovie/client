@@ -22,6 +22,11 @@
     color: black;
   }
   
+  .modal .errorMessage {
+    display: inline;
+    margin-right: 10%;
+  }
+
   .backdrop {
     top: 0;
     position: fixed;
@@ -216,8 +221,14 @@
   
   .card .icon {
     color: red;
+    display: inline-block;
   }
   
+  .card .columnArrange {
+    padding-right: 10px;
+    border-right: 2px solid white;
+  }
+
   .card .reviewContent {
     margin-left: 5%;
     overflow: hidden;

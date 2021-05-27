@@ -3,8 +3,13 @@
     <transition name="modal">
       <div v-if="showModal" class="backdrop">
         <div class="modal">
-          <p>로그인이 필요한 페이지입니다.</p>
-          <button @click="goLogin">로그인창으로 이동하기</button>
+          <p>{{ errorMessage }}</p>
+          <div
+            class="errorMessage"
+            v-if="errorMessage === '로그인이 필요한 기능입니다.'"
+          >
+            <button @click="goLogin">로그인창으로 이동하기</button>
+          </div>
           <button @click="setModal">X</button>
         </div>
       </div>
@@ -36,11 +41,15 @@
           <transition-group tag="ul" name="list" appear class="row">
             <li v-for="review in reviews" :key="review" class="column">
               <div class="card">
-                <div v-for="num of review.rank" :key="num" class="icon">
-                  <fa icon="star" />
+                <div class="columnArrange">
+                  <div v-for="num of review.rank" :key="num" class="icon">
+                    <fa icon="star" />
+                  </div>
+                  <div>
+                    {{ review.create_user.profile }}
+                  </div>
                 </div>
                 <div class="reviewContent">
-                  <!-- {{ review.create_user.profile.username }} -->
                   {{ review.content }}
                 </div>
               </div>
@@ -73,6 +82,7 @@ export default defineComponent({
     const content = ref<string>("");
     const rank = ref<number>(1);
     const showModal = ref<boolean>(false);
+    const errorMessage = ref<string>("");
 
     const setModal = () => {
       showModal.value = !showModal.value;
@@ -94,6 +104,7 @@ export default defineComponent({
       () => props.movies_reviews,
       (currValue, oldValue) => {
         reviews.value = props.movies_reviews;
+        console.log("chkchk");
         console.log(reviews.value);
       }
     );
@@ -113,7 +124,13 @@ export default defineComponent({
         });
         context.emit("update");
       } catch (err) {
-        console.log(err);
+        const response = err.response;
+        console.log(response.status);
+        if (response.status === 401) {
+          errorMessage.value = "로그인이 필요한 기능입니다.";
+        } else {
+          errorMessage.value = response.data.message;
+        }
         showModal.value = !showModal.value;
       }
     };
@@ -138,6 +155,7 @@ export default defineComponent({
       reviews,
       content,
       rank,
+      errorMessage,
       setModal,
       goLogin,
       showModal,
