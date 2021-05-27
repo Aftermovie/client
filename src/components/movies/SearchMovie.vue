@@ -1,13 +1,15 @@
 <template>
   <div class="container">
     <div class="card" v-for="movie in movies" :key="movie">
-      <div class="box">
-        <div class="content">
-          <div class="imgHover"></div>
-          <img :src="movie.poster_path" alt="" />
-          <h3>{{ movie.title }}</h3>
+      <router-link :to="{ name: 'MovieDetail', params: { id: movie.id } }">
+        <div class="box">
+          <div class="content">
+            <div class="imgHover"></div>
+            <img :src="movie.poster_path" alt="" />
+            <h3>{{ movie.title }}</h3>
+          </div>
         </div>
-      </div>
+      </router-link>
     </div>
   </div>
 </template>

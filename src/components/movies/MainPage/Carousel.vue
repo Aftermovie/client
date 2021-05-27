@@ -12,11 +12,13 @@
     :navigation="true"
   >
     <swiper-slide v-for="movie in movies" :key="movie">
-      <img :src="movie.image" alt="" />
-      <div class="content">
-        <h2>{{ movie.title }}</h2>
-        <p>{{ movie.overview.slice(0, 100) }}...</p>
-      </div>
+      <router-link :to="{ name: 'MovieDetail', params: { id: movie.id } }">
+        <img :src="movie.image" alt="" />
+        <div class="content">
+          <h2>{{ movie.title }}</h2>
+          <p>{{ movie.overview.slice(0, 100) }}...</p>
+        </div>
+      </router-link>
     </swiper-slide>
   </swiper>
 </template>

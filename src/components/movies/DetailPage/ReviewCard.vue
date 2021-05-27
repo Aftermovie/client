@@ -4,8 +4,8 @@
       <div v-if="showModal" class="backdrop">
         <div class="modal">
           <p>로그인이 필요한 페이지입니다.</p>
-          <button @click="setModal">X</button>
           <button @click="goLogin">로그인창으로 이동하기</button>
+          <button @click="setModal">X</button>
         </div>
       </div>
     </transition>
@@ -14,11 +14,11 @@
         <div class="skills">
           <h3 class="name">평점</h3>
           <div class="rating">
-            <input type="radio" @click="scoreRank(5)" />
-            <input type="radio" @click="scoreRank(4)" />
-            <input type="radio" @click="scoreRank(3)" />
-            <input type="radio" @click="scoreRank(2)" />
-            <input type="radio" @click="scoreRank(1)" />
+            <input class="radio" type="radio" @click="scoreRank(5)" />
+            <input class="radio" type="radio" @click="scoreRank(4)" />
+            <input class="radio" type="radio" @click="scoreRank(3)" />
+            <input class="radio" type="radio" @click="scoreRank(2)" />
+            <input class="radio" type="radio" @click="scoreRank(1)" />
           </div>
         </div>
         <form @submit.prevent="handleSubmit">
@@ -40,9 +40,13 @@
                   <fa icon="star" />
                 </div>
                 <div class="reviewContent">
+                  <!-- {{ review.create_user.profile.username }} -->
                   {{ review.content }}
                 </div>
               </div>
+              <fa icon="thumbs-up" @click="likeReview(review.id)" />
+              {{ review.likes_count }} <fa icon="thumbs-down" />
+              {{ review.dislikes_count }}
             </li>
           </transition-group>
         </div>
@@ -90,6 +94,7 @@ export default defineComponent({
       () => props.movies_reviews,
       (currValue, oldValue) => {
         reviews.value = props.movies_reviews;
+        console.log(reviews.value);
       }
     );
 
@@ -113,6 +118,22 @@ export default defineComponent({
       }
     };
 
+    const likeReview = async (id: number) => {
+      const SERVER_URL_POSTREVIEWLIKE = `${process.env.VUE_APP_SERVER_URL}/movies/reviews/${id}/like/`;
+      console.log(SERVER_URL_POSTREVIEWLIKE);
+      console.log(`JWT ${store.state.userToken}`);
+      try {
+        const response = await axios.post(SERVER_URL_POSTREVIEWLIKE, {
+          headers: {
+            Authorization: `JWT ${store.state.userToken}`,
+          },
+        });
+        console.log(response);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
     return {
       reviews,
       content,
@@ -122,6 +143,7 @@ export default defineComponent({
       showModal,
       scoreRank,
       handleSubmit,
+      likeReview,
     };
   },
 });

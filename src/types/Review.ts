@@ -1,6 +1,7 @@
 interface Review {
     id: number,
     content: string,
+    // created_user: any,
     rank: number,
     created_at: Date,
     movie: number,

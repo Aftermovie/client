@@ -6,8 +6,12 @@ form {
     padding: 40px;
     border-radius: 10px;
   }
+  p{
+    color:black;
+    text-align: center;
+  }
   label {
-    color: #aaa;
+    color: black;
     display: inline-block;
     margin: 25px 0 15px;
     font-size: 0.6em;
@@ -33,7 +37,7 @@ form {
     top: 2px;
   }
   button {
-    background: #0b6dff;
+    background: #cc0000;
     border: 0;
     padding: 10px 20px;
     margin-top: 20px;
@@ -43,6 +47,7 @@ form {
   .submit {
     text-align: center;
   }
+
   .error {
     color: #ff0062;
     margin-top: 10px;

@@ -1,4 +1,5 @@
 interface Movie {
+    id: Number,
     title: string,
     overview: string,
     release_date: Date,

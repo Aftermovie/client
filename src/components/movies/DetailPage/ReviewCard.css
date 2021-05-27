@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
+    text-align: center;
   }
   
   body {
@@ -111,10 +111,13 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    -webkit-appearance: none;
+    /* -webkit-appearance: none; */
+    /* appearance: radio; */
     appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
   }
-  
+
   .container .skills .rating input::before {
     content: "\f005";
     position: absolute;
@@ -125,7 +128,7 @@
     color: #030b0f;
     transition: 0.5s;
   }
-  
+
   .container .skills .rating input:hover ~ input::before,
   .container .skills .rating input:hover::before,
   .container .skills .rating input:checked ~ input::before,
@@ -236,12 +239,17 @@
   }
   
   button {
-    background: #0b6dff;
+    background: #cc0000;
     border: 0;
     padding: 10px 20px;
     margin-top: 20px;
     color: white;
     border-radius: 20px;
+  }
+
+  button:hover {
+    transform: translateY(-2px);
+    transition: 0.5s;
   }
   
   /* 6. Group Transition */

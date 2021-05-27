@@ -4,20 +4,24 @@
       <div v-if="showModal" class="backdrop">
         <div class="modal">
           <p>로그인이 필요한 페이지입니다.</p>
-          <button @click="setModal">X</button>
-          <button @click="goLogin">로그인창으로 이동하기</button>
+          <button class="goLogin" @click="goLogin">
+            로그인창으로 이동하기
+          </button>
+          <button class="closeModal" @click="setModal">X</button>
         </div>
       </div>
     </transition>
     <div class="container">
       <div class="card" v-for="movie in movies" :key="movie.id">
-        <div class="box">
-          <div class="content">
-            <div class="imgHover"></div>
-            <img :src="movie.poster_path" alt="" />
-            <h3>{{ movie.title }}</h3>
+        <router-link :to="{ name: 'MovieDetail', params: { id: movie.id } }">
+          <div class="box">
+            <div class="content">
+              <div class="imgHover"></div>
+              <img :src="movie.poster_path" alt="" />
+              <h3>{{ movie.title }}</h3>
+            </div>
           </div>
-        </div>
+        </router-link>
       </div>
     </div>
   </div>

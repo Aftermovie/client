@@ -66,7 +66,6 @@ export default defineComponent({
     const SERVER_URL_GETMOVIEDETAIL = `${process.env.VUE_APP_SERVER_URL}/movies/${props.id}`;
 
     const load = async () => {
-      console.log(1111);
       try {
         const response = await axios.get(SERVER_URL_GETMOVIEDETAIL);
         movieDetail.value = response.data;

@@ -12,6 +12,23 @@
     min-height: 100vh;
     background: #232427;
   }
+
+  button {
+    background: #cc0000;
+    border: 0;
+    padding: 10px 20px;
+    margin-top: 20px;
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+    
+  }
+
+  button:hover {
+    transform: translateY(-2px);
+    transition: 0.5s;
+  }
+
   .modal {
     width: 400px;
     padding: 20px;

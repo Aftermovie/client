@@ -14,20 +14,49 @@
       <input type="checkbox" v-model="terms" required />
       <label>Accept terms and condition</label>
     </div>
-
+    <br />
+    <p>좋아하시는 분류의 영화를 골라주세요.</p>
+    <hr />
     <div>
-      <input type="checkbox" value="shaun" v-model="preferredGenre" />
-      <label>Horror</label>
+      <input type="checkbox" value="1" v-model="preferredGenre" />
+      <label>액션</label>
     </div>
     <div>
-      <input type="checkbox" value="yoshin" v-model="preferredGenre" />
-      <label>Document</label>
+      <input type="checkbox" value="3" v-model="preferredGenre" />
+      <label>애니메이션</label>
     </div>
     <div>
-      <input type="checkbox" value="mario" v-model="preferredGenre" />
-      <label>Romance</label>
+      <input type="checkbox" value="4" v-model="preferredGenre" />
+      <label>코미디</label>
     </div>
-
+    <div>
+      <input type="checkbox" value="5" v-model="preferredGenre" />
+      <label>범죄</label>
+    </div>
+    <div>
+      <input type="checkbox" value="9" v-model="preferredGenre" />
+      <label>판타지</label>
+    </div>
+    <div>
+      <input type="checkbox" value="10" v-model="preferredGenre" />
+      <label>역사</label>
+    </div>
+    <div>
+      <input type="checkbox" value="11" v-model="preferredGenre" />
+      <label>공포</label>
+    </div>
+    <div>
+      <input type="checkbox" value="14" v-model="preferredGenre" />
+      <label>로맨스</label>
+    </div>
+    <div>
+      <input type="checkbox" value="15" v-model="preferredGenre" />
+      <label>SF</label>
+    </div>
+    <div>
+      <input type="checkbox" value="17" v-model="preferredGenre" />
+      <label>스릴러</label>
+    </div>
     <div class="error" v-if="error">{{ error }}</div>
 
     <div class="submit">
@@ -51,7 +80,7 @@ export default defineComponent({
     const passwordConfirmation = ref<string>("");
     const passwordError = ref<string>("");
     const terms = ref<boolean>(false);
-    const preferredGenre = ref<Array<string>>([]);
+    const preferredGenre = ref<Array<number>>([]);
     const error = ref<string>("");
 
     const store = useStore();
@@ -96,7 +125,7 @@ export default defineComponent({
           });
         } catch (err) {
           error.value = err.message; // 백엔드에서 넘어오는 에러에 대한 메세지 이름은 message로 명시할 필요가 있음.
-          console.log(error.value);
+          console.log(err.data);
         }
       }
     };

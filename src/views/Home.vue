@@ -3,6 +3,7 @@
     <Carousel :carousel_movies="carousel_movies" />
     <VerticalSlide :vertical_movies="carousel_movies" :username="username" />
     <VerticalSlideGenre />
+    <Footer />
   </div>
 </template>
 
@@ -14,10 +15,11 @@ import Carousel from "../components/movies/MainPage/Carousel.vue";
 import VerticalSlide from "../components/movies/MainPage/VerticalSlide.vue";
 import VerticalSlideGenre from "../components/movies/MainPage/VerticalSlideGenre.vue";
 import { useStore } from "@/store";
+import Footer from "../components/movies/Footer/Footer.vue";
 
 export default defineComponent({
   name: "Home",
-  components: { Carousel, VerticalSlide, VerticalSlideGenre },
+  components: { Carousel, VerticalSlide, VerticalSlideGenre, Footer },
   setup() {
     const store = useStore();
 
