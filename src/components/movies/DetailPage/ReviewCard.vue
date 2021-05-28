@@ -127,6 +127,7 @@ export default defineComponent({
             Authorization: `JWT ${store.state.userToken}`,
           },
         });
+        content.value = "";
         context.emit("update");
       } catch (err) {
         const response = err.response;
