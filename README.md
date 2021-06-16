@@ -1,3 +1,7 @@
+## <🎈완성된 페이지!!!>
+
+![AfterMovie](./src/assets/img/AfterMovie.gif)
+
 
 
 ### 5/20
