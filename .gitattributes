@@ -1,1 +1,2 @@
 AfterMovie.gif filter=lfs diff=lfs merge=lfs -text
+src/assets/img/AfterMovie.gif filter=lfs diff=lfs merge=lfs -text
