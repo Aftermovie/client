@@ -139,9 +139,7 @@ export default defineComponent({
             name: "Home",
           });
         } catch (err) {
-          const response = err.response;
-          console.log(response);
-          error.value = response.data.message;
+          console.log(err);
         }
       }
     };

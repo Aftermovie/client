@@ -130,14 +130,14 @@ export default defineComponent({
         content.value = "";
         context.emit("update");
       } catch (err) {
-        const response = err.response;
-        console.log(response.status);
-        if (response.status === 401) {
-          errorMessage.value = "로그인이 필요한 기능입니다.";
-        } else {
-          errorMessage.value = response.data.message;
-        }
-        showModal.value = !showModal.value;
+        // const response = err.response;
+        // console.log(response.status);
+        // if (response.status === 401) {
+        //   errorMessage.value = "로그인이 필요한 기능입니다.";
+        // } else {
+        //   errorMessage.value = response.data.message;
+        // }
+        // showModal.value = !showModal.value;
       }
     };
 
@@ -218,5 +218,4 @@ export default defineComponent({
 });
 </script>
 
-<style src="./ReviewCard.css" scoped>
-</style>
+<style src="./ReviewCard.css" scoped></style>
