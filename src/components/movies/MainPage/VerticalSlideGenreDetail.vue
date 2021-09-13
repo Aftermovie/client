@@ -59,7 +59,7 @@ export default defineComponent({
   setup(props) {
     const movies = ref<Movie[]>([]);
 
-    const SERVER_URL_GETGENREMOVIE = `https://aftermovie-api.herokuapp.com/movies/genre/${props.genreNum}/`;
+    const SERVER_URL_GETGENREMOVIE = `https://jolly-pike-9f3308.netlify.app/movies/genre/${props.genreNum}/`;
 
     const load = async () => {
       try {
