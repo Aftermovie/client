@@ -59,7 +59,7 @@ export default defineComponent({
   setup(props) {
     const movies = ref<Movie[]>([]);
 
-    const SERVER_URL_GETGENREMOVIE = `${process.env.VUE_APP_SERVER_URL}/movies/genre/${props.genreNum}/`;
+    const SERVER_URL_GETGENREMOVIE = `https://aftermovie-api.herokuapp.com/movies/genre/${props.genreNum}/`;
 
     const load = async () => {
       try {
